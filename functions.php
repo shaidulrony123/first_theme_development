@@ -58,5 +58,24 @@ if (!function_exists('custom_a_class_add')) {
 }
 add_filter('nav_menu_link_attributes', 'custom_a_class_add', 10, 3);
 }
+
+if (!function_exists('neogym_service')) {
+    function neogym_service() {
+        register_post_type(
+            'neogym_service_post',
+            array(
+                'labels'      => array(
+                    'name'          => __('Services', 'textdomain'),
+                    'singular_name' => __('Services', 'textdomain'),
+                ),
+                'public'      => true,
+                'has_archive' => true,
+            )
+        ); // Missing semicolon added here
+    }
+}
+add_action('init', 'neogym_service');
+
+
 add_action('after_setup_theme', 'mythemefunction');
 ?>
