@@ -58,7 +58,8 @@ if (!function_exists('custom_a_class_add')) {
 }
 add_filter('nav_menu_link_attributes', 'custom_a_class_add', 10, 3);
 }
-
+add_action('after_setup_theme', 'mythemefunction');
+//add custom post type for services
 if (!function_exists('neogym_service')) {
     function neogym_service() {
         register_post_type(
@@ -76,6 +77,56 @@ if (!function_exists('neogym_service')) {
 }
 add_action('init', 'neogym_service');
 
+//add custom post type for students
+if (!function_exists('neogym_student')) {
+    function neogym_student() {
+        register_post_type(
+            'neogym_student_post',
+            array(
+                'labels'      => array(
+                    'name'          => __('Students', 'textdomain'),
+                    'singular_name' => __('Student', 'textdomain'),
+                    'add_new_item'          => __( 'Add New Student', 'textdomain' ),
+                    'not_found'             => __( 'Not found any student', 'textdomain' ),
+		            'not_found_in_trash'    => __( 'Not found any student in Trash', 'textdomain' ),
+                    'set_featured_image'    => __( 'Set student image', 'textdomain' ),
+                ),
+                'public'      => true,
+                'supports'   => array('title', 'editor', 'thumbnail'),
+                'has_archive' => true,
+            )
+        ); // Missing semicolon added here
+    }
+}
+add_action('init', 'neogym_student');
 
-add_action('after_setup_theme', 'mythemefunction');
+//add taxonomy for students
+if (!function_exists('mystudentdepartment')) {
+    function mystudentdepartment() {
+        $labels = array(
+            'name'              => _x( 'students', 'textdomain' ),
+            'singular_name'     => _x( 'Course', 'textdomain' ),
+            'search_items'      => __( 'Search students' ),
+            'all_items'         => __( 'All students' ),
+            'parent_item'       => __( 'Parent students' ),
+            'parent_item_colon' => __( 'Parent students:' ),
+            'edit_item'         => __( 'Edit students' ),
+            'update_item'       => __( 'Update students' ),
+            'add_new_item'      => __( 'Add New students' ),
+            'new_item_name'     => __( 'New students Name' ),
+            'menu_name'         => __( 'Student Department' ),
+        );
+        $args   = array(
+            'hierarchical'      => true, // make it hierarchical (like categories)
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => [ 'slug' => 'neogym_student' ],
+        );
+        register_taxonomy('student_department',['neogym_student_post'], $args);
+    }
+}
+add_action('init', 'mystudentdepartment');
+
 ?>

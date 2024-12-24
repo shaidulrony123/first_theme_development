@@ -6,15 +6,51 @@ get_header();
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <?php 
-           if(have_posts()):
-            while(have_posts()): the_post();
-            the_post_thumbnail('custom-100x100'); // Use the custom size
-                the_title();
+          //  if(have_posts()):
+          //   while(have_posts()): the_post();
+          //   the_post_thumbnail('custom-100x100'); // Use the custom size
+          //       the_title();
+          //       the_content();
+          //   endwhile;
+          //   else:
+          //       echo "No posts found";
+          //   endif;
+          $myarguments = array(
+            'post_type' => 'neogym_student_post'
+        );
+        
+        $the_query = new WP_Query($myarguments);
+        
+        if ($the_query->have_posts()) {
+            while ($the_query->have_posts()) {
+                $the_query->the_post();
+                the_post_thumbnail('custom-100x100'); // Use the custom size
+                // Display the title
+                the_title('<h2>', '</h2>');
+        
+                // Display the content
                 the_content();
-            endwhile;
-            else:
-                echo "No posts found";
-            endif;
+        
+                // Display the categories or terms
+                $categories = get_the_terms(get_the_ID(), 'student_department'); // Use the correct taxonomy slug
+                if (!empty($categories) && !is_wp_error($categories)) {
+                    echo '<ul class="categories">';
+                    foreach ($categories as $category) {
+                        echo '<li>' . esc_html($category->name) . '</li>';
+                    }
+                    echo '</ul>';
+                }
+
+            }
+        
+            // Restore the original post data
+            wp_reset_postdata();
+        } else {
+            echo 'No posts found.';
+        }
+        
+        
+    
             ?>
           <!-- <div class="carousel-item active">
             <div class="container">
