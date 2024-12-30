@@ -10,7 +10,10 @@
             </div>
             <div class="detail-box">
               <p>
-                Location
+                <?php
+                 $options = get_option( '_prefix_my_options' );
+                 echo $options['add-location-1'];
+                ?>
               </p>
             </div>
           </div>
@@ -22,7 +25,10 @@
             </div>
             <div class="detail-box">
               <p>
-                +02 1234567890
+                <?php
+                 $options = get_option( '_prefix_my_options' );
+                 echo $options['cell-phone'];
+                ?>
               </p>
             </div>
           </div>
@@ -34,7 +40,10 @@
             </div>
             <div class="detail-box">
               <p>
-                demo@gmail.com
+                <?php
+                 $options = get_option( '_prefix_my_options' );
+                 echo $options['add-mail-1'];
+                ?>
               </p>
             </div>
           </div>
@@ -48,7 +57,10 @@
   <!-- footer section -->
   <footer class="container-fluid footer_section">
     <p>
-      &copy; 2020 All Rights Reserved. Design by
+      <?php 
+        $options = get_option( '_prefix_my_options' );
+        echo $options['opt-text-2'];
+      ?>
       <a href="https://html.design/">Free Html Templates</a>
     </p>
   </footer>

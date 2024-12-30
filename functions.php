@@ -129,4 +129,71 @@ if (!function_exists('mystudentdepartment')) {
 }
 add_action('init', 'mystudentdepartment');
 
+//shortcode for test
+if(!function_exists('neogym_test_shortcode')){
+    function neogym_test_shortcode(){
+        add_shortcode('neogym_test', 'neogym_test_shortcode_function');
+        if(!function_exists('neogym_test_shortcode_function')){
+            function neogym_test_shortcode_function(){
+                return 'Hello World';
+            }
+        }
+    }
+}
+add_action('init', 'neogym_test_shortcode');
+
+
+//01 shortcode for contact form
+// if (!function_exists('neogym_contact_form_shortcode_function')) {
+//     function neogym_contact_form_shortcode_function() {
+//         $form = '<form action="" method="post">
+//             <label for="name">Name:</label><br>
+//             <input type="text" id="name" name="name"><br>
+//             <label for="email">Email:</label><br>
+//             <input type="email" id="email" name="email"><br>
+//             <label for="message">Message:</label><br>
+//             <textarea id="message" name="message"></textarea><br>
+//             <input type="submit" value="Submit">
+//         </form>';
+//         return $form;
+//     }
+
+//     add_shortcode('neogym_contact_form', 'neogym_contact_form_shortcode_function');
+// }
+
+// 02 shortcode for contact form
+if (!function_exists('neogym_contact_form_shortcode_function')) {
+    function neogym_contact_form_shortcode_function() {
+        // Start output buffering
+        ob_start();
+        
+        // Define the form HTML
+        ?>
+        <form action="" method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+        <?php
+        
+        // Get the contents of the buffer and clean it
+        return ob_get_clean();
+    }
+
+    // Register the shortcode
+    add_shortcode('neogym_contact_form', 'neogym_contact_form_shortcode_function');
+}
+
+
+
+// add theme option use codestar framework
+
+require_once get_theme_file_path(). '/inc/codestar/codestar-framework.php';
+require_once get_theme_file_path(). '/inc/codestar/samples/admin-options.php';
+
+
 ?>
