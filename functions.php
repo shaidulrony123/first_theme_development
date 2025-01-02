@@ -1,4 +1,94 @@
 <?php 
+
+//add enqueu style and script
+
+if(!function_exists('mythemestyleandscript')){
+    function mythemestyleandscript(){
+        // include assets css
+        wp_enqueue_style("unque_id", get_stylesheet_uri());
+
+        // include assets bootstrap
+        wp_enqueue_style("bootstrap_css",
+        get_parent_theme_file_uri('/assets/css/bootstrap.css'),
+        array(),
+        // show version number
+        wp_get_theme()->get('Version'),
+        // media all
+        'all',
+        );
+
+        // include style css
+        wp_enqueue_style("unque_id", get_stylesheet_uri());
+
+        // include assets style css
+        wp_enqueue_style("style_css",
+        get_parent_theme_file_uri('/assets/css/style.css'),
+        array(),
+        // show version number
+        wp_get_theme()->get('Version'),
+        // media all
+        'all',
+        );
+
+        //responsive css
+        wp_enqueue_style("responsive_css",
+        get_parent_theme_file_uri('/assets/css/responsive.css'),
+        array(),
+        // show version number
+        wp_get_theme()->get('Version'),
+        // media all
+        'all',
+        );
+
+
+        //include https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css
+        // wp_enqueue_style("owl_carousel_css",
+        // get_parent_theme_file_uri('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css'),
+        // array(),
+        // // show version number
+        // wp_get_theme()->get('Version'),
+        // // media all
+        // 'all',
+        // );
+        wp_enqueue_style(
+            "owl_carousel_css", // Handle name
+            'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', // URL to the stylesheet
+            array(), // Dependencies (none in this case)
+            null, // Version number (use null for no version)
+            'all' // Media (e.g., 'all', 'screen', 'print')
+        );
+
+        //google font
+        wp_enqueue_style(
+            "google_font", // Handle name
+            'https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap', // URL to the stylesheet
+            array(), // Dependencies (none in this case)
+            null, // Version number (use null for no version)
+            'all' // Media (e.g., 'all', 'screen', 'print')
+        );
+
+        // include js file
+        wp_enqueue_script(
+            "jquery_js", // Unique handle
+            get_template_directory_uri() . "/assets/js/jquery-3.4.1.min.js", // File URL
+            array(), // Dependencies (empty if none)
+            wp_get_theme()->get('Version'), // Version (theme version for cache busting)
+            true // Load in footer
+        );
+        //bootstrap js
+        wp_enqueue_script(
+            "bootstrap_js", // Unique handle
+            get_template_directory_uri() . "/assets/js/bootstrap.js", // File URL
+            array(), // Dependencies (empty if none)
+            wp_get_theme()->get('Version'), // Version (theme version for cache busting)
+            true // Load in footer
+        );
+        
+    }
+}
+
+add_action('wp_enqueue_scripts', 'mythemestyleandscript');
+
 if(!function_exists('mythemefunction')){
     function mythemefunction(){
         add_theme_support('post-thumbnails');
@@ -194,6 +284,11 @@ if (!function_exists('neogym_contact_form_shortcode_function')) {
 
 require_once get_theme_file_path(). '/inc/codestar/codestar-framework.php';
 require_once get_theme_file_path(). '/inc/codestar/samples/admin-options.php';
+require_once get_theme_file_path(). '/inc/customposttype/price.php';
+
+require_once __DIR__ . '/inc/cmb2/init.php';
+// require_once __DIR__ . '/inc/cmb2/example-functions.php';
+require_once __DIR__ . '/inc/cmb2/student-cmb.php';
 
 
 ?>

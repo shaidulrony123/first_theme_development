@@ -13,7 +13,7 @@
           //       echo "No posts found";
           //   endif;
           $myarguments = array(
-            'post_type' => 'neogym_student_post'
+            'post_type' => 'package_price'
         );
         
         $the_query = new WP_Query($myarguments);
@@ -27,7 +27,8 @@
         
                 // Display the content
                 the_content();
-        
+                $text_price  = get_post_meta( get_the_ID(), 'test_price', true );
+                echo esc_html( $text_price );
                 // Display the categories or terms
                 $categories = get_the_terms(get_the_ID(), 'student_department'); // Use the correct taxonomy slug
                 if (!empty($categories) && !is_wp_error($categories)) {
